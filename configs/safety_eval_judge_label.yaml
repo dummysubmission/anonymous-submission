@@ -1,0 +1,31 @@
+defaults:
+  - dataset: ours
+  - judge: qwen3-vl-30b-a3b-instruct
+  - vllm_offline_chat
+  - _self_
+
+# Must match the output directory used for response generation (model ``short_name`` by default).
+target_model_name: Qwen3-VL-2B-Instruct
+
+# StrongREJECT user prompt variant (merged into ``cfg.judge``; see ``prompts/strongreject_rubric_enforce_format.py``).
+judge:
+  rubric: strongreject
+  system_prompt: null
+
+# Shared by batch (offline vLLM) and server / API (OpenAI-compatible) judge.
+sampling_params:
+  temperature: 0.0
+  max_new_tokens: 8192
+  seed: 42
+
+overwrite: false
+response_path: null
+save_path: null
+
+# Server / Portkey: OpenAI-compatible judge endpoint (vLLM serve, etc.)
+server:
+  host: 127.0.0.1
+  port: 8000
+base_url: http://${server.host}:${server.port}/v1
+
+enable_thinking: false

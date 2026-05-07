@@ -1,0 +1,46 @@
+defaults:
+  - _self_
+
+# Folder name under output/generate_sample/<source_model_name>/samples.json
+source_model_name: Qwen3.5-9B-Instruct
+
+# Required. Path to the input samples JSON (repo-relative or absolute).
+samples_source: null
+
+# Where to write the updated samples JSON (with image_path fields).
+# Defaults to samples_source (in-place update) when null.
+samples_save: null
+
+# Directory to write generated PNGs into (repo-relative or absolute).
+# Defaults to <samples_save directory>/images when null.
+images_dir: null
+
+start_index: 0
+max_samples: null
+
+# Skip samples that already have a non-empty image_path and the file exists on disk.
+skip_existing: false
+
+# Stop the whole run if one sample fails (otherwise log and continue).
+strict: false
+
+image_gen_model_path:
+
+# Path to the .pt file produced by prepare_text_encoding.py (repo-relative or absolute).
+# Required — must be set at runtime.
+encodings_path: null
+
+# Number of prompts per pipe() call (higher throughput, more VRAM). Set to 1 to disable batching.
+batch_size: 1
+
+height: 1024
+width: 1024
+guidance_scale: 4.0
+num_inference_steps: 50
+
+device: cuda
+dtype: bfloat16
+
+# Base seed; when per_index_seed is true, each sample uses (seed + index).
+seed: 0
+per_index_seed: true

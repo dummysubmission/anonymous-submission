@@ -1,0 +1,40 @@
+defaults:
+  - dataset: ours
+  - model: gemma4-e4b-instruct
+  - _self_
+
+# Preserve previous attack behavior (``adversarial/dataset_utils`` used ``data_dir=mini``).
+dataset:
+  hf_data_dir: mini
+
+# Sequential loader for refilling the active pool (always 1).
+batch_size: 1
+
+seed: 42
+device: cuda
+
+# Model compute dtype (optimized ``image_rgb`` is float32 in [0,255]; model weights use this dtype).
+torch_dtype: float32
+
+attack:
+  batch_size: 8
+  max_iters_per_sample: 500
+  lr: 3e-3
+  # adam = torch.optim.Adam on ``image_rgb``. null / omit / sgd = manual ``image_rgb -= lr * grad`` (still trains).
+  optimizer: adam
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_eps: 1.0e-8
+  # Last N assistant tokens excluded from CE (default 2). Must be < completion_len when masking applies.
+  completion_loss_tail_ignore: 2
+  # L2 penalty toward initial image tensor (same scale as image_rgb: post-rescale float, typically ~[0,1]) (optional).
+  l2_weight: 0.1
+  save_failed: false
+  failed_subdir: failed
+  skip_existing: false
+  enable_thinking: false
+  system_prompt: null
+  # Clamp optimized values after each step (default ~[0, 1] after ``rescale_and_normalize``, e.g. 1/255 rescale).
+  image_clamp_min: 0.0
+  image_clamp_max: 1.0
+  output_dir: output/adversarial_attack

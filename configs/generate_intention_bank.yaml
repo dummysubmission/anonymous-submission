@@ -1,0 +1,29 @@
+defaults:
+  - _self_
+  - dataset: persona
+  - model: qwen35-9b-instruct
+
+server:
+  host: 127.0.0.1
+  port: 8000
+
+base_url: http://${server.host}:${server.port}/v1
+
+lora_path: null
+model_name: null
+save_path: null
+
+start_index: 0
+max_samples: null
+max_attempts_per_persona: 3
+random_sample: false
+
+bank_size: 10
+temperature: 0.7
+enable_thinking: true
+
+overwrite: false
+verbose: true
+
+sampling_params:
+  max_new_tokens: 32768

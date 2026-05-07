@@ -1,0 +1,36 @@
+defaults:
+  - _self_
+  # Used by vLLM offline batch prep (`data_curation/batch_generate_implicit_query/`); unused by
+  # the online `generate_implicit_query.py` client, which reads `model_name` / the server instead.
+  - model: gemma4-31b-instruct
+
+server:
+  host: 127.0.0.1
+  port: 8000
+
+# Set to null to use Portkey API instead of a local vLLM server.
+base_url: http://${server.host}:${server.port}/v1
+
+model_name: null
+
+# Source samples JSON (from prior stages).
+samples_source: null
+# Destination path for results. When null, updates samples_source in place.
+save_path: null
+
+start_index: 0
+max_samples: null
+max_attempts_per_sample: 3
+retry_sleep_seconds: 2.0
+
+# Only process samples that passed prior stages (include=True, image_helpfulness=True).
+require_prior_stages: true
+
+temperature: 0.7
+enable_thinking: true
+
+overwrite: false
+verbose: true
+
+sampling_params:
+  max_new_tokens: 4096

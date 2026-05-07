@@ -1,0 +1,27 @@
+defaults:
+  - _self_
+  - dataset: persona
+
+# Local snapshot path (override via CLI: embedding_model_path=...)
+embedding_model_path: 
+
+sample_size: 10000
+seed: 0
+batch_size: 32
+kmeans_batch_size: 8192
+kmeans_max_iter: 100
+kmeans_n_init: 3
+
+start_index: 0
+max_samples: null
+
+# If set, load/save float32 embeddings (shape [N, dim]) to skip re-encoding
+embeddings_cache_path: null
+
+save_path: null
+
+# HuggingFace Dataset.save_to_disk under repo root (relative path ok)
+hf_export_dir: data/Persona-10K
+export_hf_dataset: true
+
+device: cuda

@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Images served from GCS in production
+data/images/
+
+# User keys — plain-text, never commit
+data/users.json
+
+java

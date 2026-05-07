@@ -1,0 +1,22 @@
+# Shared defaults for safety_eval offline ``vllm.LLM.chat`` runners.
+# Included via Hydra ``defaults: - vllm_offline_chat`` from stage YAMLs.
+
+vllm:
+  tensor_parallel_size: 1
+  # null = omit (vLLM ``auto``); set e.g. triton to avoid broken VLLM_CUTLASS FP8 MoE on some models
+  moe_backend: triton
+  # null = omit (vLLM derives from model); override with an int when needed
+  max_model_len: null
+  judge_max_model_len: 65536
+  limit_mm_per_prompt_image: 1
+  limit_mm_per_prompt_video: 0
+
+offline_chat:
+  use_tqdm: true
+  # Multimodal ``llm.chat`` holds large per-prompt buffers while rendering; chunk to cap RAM.
+  # Set 0 or negative to disable chunking (one giant ``llm.chat`` — can OOM on big VL runs).
+  chat_batch_size: 128
+  # null = default thread count (min(32, (cpu_count or 4) * 4)); set e.g. 16 to cap
+  prepare_max_workers: null
+  gdn_prefill_backend: triton
+  llm_kwargs: {}

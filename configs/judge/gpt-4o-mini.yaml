@@ -1,0 +1,7 @@
+provider: azure
+portkey_model_name: gpt-4o-mini
+azure_model_name: gpt-4o-mini
+model_name_or_path: null
+max_retries: 3
+retry_sleep_seconds: 2.0
+system_prompt: null

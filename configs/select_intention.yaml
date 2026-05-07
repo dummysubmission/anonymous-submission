@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------
+# select_intention.py  —  persona-constrained ACS selection
+# -----------------------------------------------------------------------
+
+source_path: null          # path to the input intentions bank JSON
+save_path: null            # path where the selected intentions are written
+
+# Embedding model (SentenceTransformer-compatible path or HF hub name)
+model_name: 
+embed_field: custom   # record field whose text is embedded for ACS
+embed_batch_size: 64
+
+# Sampler — "acs" runs full ACS; "scalable" tunes threshold on a pilot
+sampler_type: acs
+target_coverage: 0.9
+threshold_tol: 0.01
+max_iter: 20
+subsample_ratio: 0.2          # pilot fraction (only used by scalable sampler)
+
+# Hardware
+device: auto                  # "auto" | "cuda" | "cpu"
+chunk_size: 4096              # rows per GPU matmul chunk (decrease if OOM)
+
+# Output
+drop_fields:                  # fields omitted from the saved records
+  - raw_generation_response
+overwrite: false
+seed: 42
+
+hydra:
+  run:
+    dir: .
+  output_subdir: null

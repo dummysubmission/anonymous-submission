@@ -1,0 +1,28 @@
+defaults:
+  - dataset: ours
+  - model: qwen3-vl-2b-instruct
+  - vllm_offline_chat
+  - _self_
+
+# Shared by batch (offline vLLM) and server (OpenAI-compatible) entrypoints.
+sampling_params:
+  temperature: 0.0
+  seed: 42
+  # Kept in sync with prior ``batch_safety_eval_generate_response.sh`` default when env was unset
+  max_new_tokens: 8192
+
+# Batch and server entrypoints: flat JSON list at ``get_responses_save_path`` (override with save_path=).
+overwrite: false
+save_path: null
+checkpoint_name: base
+result_suffix: null
+lora_path: null
+
+# Server mode (python -m safety_eval.generate_response): vLLM OpenAI server and DataLoader
+server:
+  host: 127.0.0.1
+  port: 8000
+base_url: http://${server.host}:${server.port}/v1
+batch_size: 1
+
+enable_thinking: false

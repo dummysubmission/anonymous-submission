@@ -1,0 +1,6 @@
+provider: vllm
+portkey_model_name: null
+model_name_or_path: 
+max_retries: 3
+retry_sleep_seconds: 2.0
+system_prompt: null

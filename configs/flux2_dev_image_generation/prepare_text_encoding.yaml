@@ -1,0 +1,34 @@
+defaults:
+  - _self_
+
+# Folder name under output/generate_sample/<source_model_name>/samples.json
+source_model_name: Qwen3.5-9B-Instruct
+
+# When set (repo-relative or absolute), load Stage-2 JSON from this file instead of
+# output/generate_sample/<source_model_name>/samples.json.
+# When samples_save is null, output goes to data/ours_iter_3/<source_model_name>/<basename>.
+samples_source: null
+samples_save: null
+
+start_index: 0
+max_samples: null
+
+# Skip samples that already have a non-empty image_path and the file exists on disk
+# (mirrors the skip logic in generate_image.py so we only encode what will be generated).
+skip_existing: true
+
+image_gen_model_path: 
+
+# Where to save the .pt file of prompt_embeds + text_ids.
+# null → output/text_encodings/<source_model_name>/<samples_stem>.pt
+encodings_save: null
+
+# Number of prompts per encode_prompt call.
+batch_size: 8
+
+device: cuda
+dtype: bfloat16
+
+# Text-encoder settings (must match what generate_image.py would use).
+max_sequence_length: 512
+text_encoder_out_layers: [10, 20, 30]

@@ -1,0 +1,19 @@
+defaults:
+  - _self_
+  - model: qwen35-9b-instruct
+
+vllm:
+  tensor_parallel_size: 1
+  max_model_len: 16384
+  max_lora_rank: 64
+  limit_mm_per_prompt_image: 5
+  limit_mm_per_prompt_video: 0
+
+server:
+  host: 127.0.0.1
+  port: 8000
+
+lora_path: null
+
+log_path: logs/vllm_server.log
+max_wait_seconds: 1500

@@ -1,0 +1,7 @@
+dataset_name: ours
+# HuggingFace ``data_dir`` (e.g. full vs mini). Must match the shard used when generating adversarial images.
+hf_data_dir: mini
+# 'explicit' or 'implicit' — controls which query field is used as the active query.
+# The HuggingFace dataset is always loaded with split='train'.
+dataset_split: explicit
+dataset_path: 

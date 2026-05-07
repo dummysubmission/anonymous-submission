@@ -1,0 +1,8 @@
+short_name: GPT-5-Mini
+provider: azure
+azure_model_name: gpt-5-mini
+portkey_model_name: gpt-5-mini
+model_name_or_path: null
+max_retries: 3
+retry_sleep_seconds: 2.0
+system_prompt: null
